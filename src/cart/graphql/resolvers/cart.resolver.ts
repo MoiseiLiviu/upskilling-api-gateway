@@ -9,6 +9,7 @@ import { CartServiceClient } from '../../proto/cart.pb';
 import { ClientGrpc } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { OrderCreatedType } from '../types/order-created.type';
+import { LoggerAdapterToken, LoggerPort } from "@nest-upskilling/common/dist";
 
 @Resolver()
 @UseGuards(AuthGuard)
@@ -18,6 +19,8 @@ export class CartResolver implements OnModuleInit {
   constructor(
     @Inject('CART_PACKAGE')
     private readonly clientGrpc: ClientGrpc,
+    @Inject(LoggerAdapterToken)
+    private readonly loggerPort: LoggerPort
   ) {}
 
   onModuleInit() {
@@ -91,11 +94,13 @@ export class CartResolver implements OnModuleInit {
 
   @Mutation(() => OrderCreatedType)
   async initOrder(@CurrentUserId() userId: number) {
+    this.loggerPort.log('CartResolver', `Received init order request from user with id ${userId}`);
     const response = await firstValueFrom(
       this.cartServiceClient.initOrder({
         userId,
       }),
     );
+    this.loggerPort.log('CartResolver', `Order initiated successfully, created order id: ${response.orderId}`);
 
     return response.orderId;
   }

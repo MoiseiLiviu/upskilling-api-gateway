@@ -7,6 +7,7 @@ import { CategoryModule } from './catalog/category/category.module';
 import { ProductModule } from './catalog/product/product.module';
 import { CartModule } from './cart/cart.module';
 import { ConfigModule } from '@nestjs/config';
+import { LoggerModule } from "@nest-upskilling/common/dist";
 
 @Module({
   imports: [

@@ -4,9 +4,11 @@ import { CartResolver } from './graphql/resolvers/cart.resolver';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { protobufPackage } from './proto/cart.pb';
 import { AuthModule } from '../auth/auth.module';
+import { LoggerModule } from "@nest-upskilling/common/dist";
 
 @Module({
   imports: [
+    LoggerModule,
     AuthModule,
     ClientsModule.registerAsync([
       {
