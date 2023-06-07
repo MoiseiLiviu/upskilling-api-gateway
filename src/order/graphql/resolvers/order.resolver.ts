@@ -8,6 +8,7 @@ import {
 import { ClientGrpc } from '@nestjs/microservices';
 import { OrderStatusGraphqlType } from '../types/order-status-graphql.type';
 import { firstValueFrom } from 'rxjs';
+import { Inject } from "@nestjs/common";
 
 registerEnumType(OrderStatus, {
   name: 'OrderStatus',
@@ -17,7 +18,9 @@ registerEnumType(OrderStatus, {
 export class OrderResolver {
   private orderServiceClient: OrderServiceClient;
 
-  constructor(private readonly clientGrpc: ClientGrpc) {
+  constructor(
+    @Inject('ORDER_PACKAGE')
+    private readonly clientGrpc: ClientGrpc) {
     this.orderServiceClient =
       this.clientGrpc.getClientByServiceName<OrderServiceClient>(
         'OrderService',

@@ -1,7 +1,8 @@
 import { OrderStatus } from '../../proto/order.pb';
-import { ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class OrderStatusGraphqlType {
+  @Field(() => OrderStatus)
   value: OrderStatus;
 }

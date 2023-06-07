@@ -10,7 +10,7 @@ import { OrderResolver } from './graphql/resolvers/order.resolver';
     AuthModule,
     ClientsModule.registerAsync([
       {
-        name: 'PRODUCT_PACKAGE',
+        name: 'ORDER_PACKAGE',
         inject: [ConfigService],
         useFactory: (configService: ConfigService) => ({
           transport: Transport.GRPC,

@@ -39,7 +39,22 @@ type OrderCreatedType {
   orderId: Int!
 }
 
+type OrderStatusGraphqlType {
+  value: OrderStatus!
+}
+
+enum OrderStatus {
+  UNKNOWN
+  CREATED
+  APPROVED
+  PAID
+  PAYMENT_FAILED
+  ITEMS_REJECTED
+  UNRECOGNIZED
+}
+
 type Query {
+  getOrderStatus(orderId: Float!): OrderStatusGraphqlType!
   hello: String!
   categories: [CategoryGraphqlType!]!
   product(id: Float!): ProductGraphqlType!
