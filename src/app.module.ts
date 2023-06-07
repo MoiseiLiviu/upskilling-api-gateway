@@ -8,9 +8,11 @@ import { ProductModule } from './catalog/product/product.module';
 import { CartModule } from './cart/cart.module';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerModule } from "@nest-upskilling/common/dist";
+import { OrderModule } from "./order/order.module";
 
 @Module({
   imports: [
+    OrderModule,
     AuthModule,
     CategoryModule,
     ProductModule,

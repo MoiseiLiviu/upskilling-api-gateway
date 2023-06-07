@@ -25,4 +25,4 @@ import { OrderResolver } from './graphql/resolvers/order.resolver';
   ],
   providers: [OrderResolver],
 })
-export class ProductModule {}
+export class OrderModule {}
