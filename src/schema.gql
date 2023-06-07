@@ -1,0 +1,89 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CategoryGraphqlType {
+  id: Int!
+  name: String!
+  description: String!
+}
+
+type ProductCategoryGraphqlType {
+  id: Int!
+  name: String!
+}
+
+type ProductGraphqlType {
+  id: Int!
+  name: String!
+  price: Float!
+  unitsAvailable: Int!
+  imageUrl: String!
+  categories: [ProductCategoryGraphqlType!]
+}
+
+type CartItemGraphqlType {
+  productId: Int!
+  quantity: Int!
+  imageUrl: String!
+  price: Int!
+  name: String!
+}
+
+type CartGraphqlType {
+  userId: Int!
+  items: [CartItemGraphqlType!]!
+}
+
+type Query {
+  hello: String!
+  categories: [CategoryGraphqlType!]!
+  product(id: Float!): ProductGraphqlType!
+  cart: CartGraphqlType
+}
+
+type Mutation {
+  login(input: AuthLoginInput!): String!
+  logout: String!
+  refresh: String!
+  registerUser(input: RegisterUserInput!): String!
+  createCategory(input: CreateCategoryInput!): CategoryGraphqlType!
+  createProduct(input: CreateProductInput!): ProductGraphqlType!
+  addToCart(input: CartItemInput!): String!
+  updateItemQuantity(input: UpdateItemInput!): String!
+  clearCart: String!
+  removeItem(productId: Float!): String!
+}
+
+input AuthLoginInput {
+  email: String!
+  password: String!
+}
+
+input RegisterUserInput {
+  email: String!
+  password: String!
+}
+
+input CreateCategoryInput {
+  name: String!
+  description: String!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Float!
+  imageUrl: String
+  unitsAvailable: Int!
+  categoriesIds: [Int!]!
+}
+
+input CartItemInput {
+  productId: Int!
+  quantity: Int!
+}
+
+input UpdateItemInput {
+  productId: Int!
+  newQuantity: Int!
+}
