@@ -25,4 +25,9 @@ import { AuthService } from './auth.service';
   providers: [AuthResolver, AuthService],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule {
+
+  constructor(private readonly configService: ConfigService) {
+    console.log(configService.get<string>('AUTH_SERVICE_URL'));
+  }
+}
