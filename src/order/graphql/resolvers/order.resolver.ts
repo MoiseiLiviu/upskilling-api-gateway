@@ -26,7 +26,7 @@ export class OrderResolver {
     private readonly loggerPort: LoggerPort,
   ) {
     this.orderServiceClient =
-      this.clientGrpc.getClientByServiceName<OrderServiceClient>(
+      this.clientGrpc.getService<OrderServiceClient>(
         'OrderService',
       );
   }
