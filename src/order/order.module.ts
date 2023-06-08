@@ -4,9 +4,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthModule } from '../auth/auth.module';
 import { protobufPackage } from './proto/order.pb';
 import { OrderResolver } from './graphql/resolvers/order.resolver';
+import { LoggerModule } from "@nest-upskilling/common/dist";
 
 @Module({
   imports: [
+    LoggerModule,
     AuthModule,
     ClientsModule.registerAsync([
       {

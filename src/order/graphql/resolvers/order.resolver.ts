@@ -8,7 +8,8 @@ import {
 import { ClientGrpc } from '@nestjs/microservices';
 import { OrderStatusGraphqlType } from '../types/order-status-graphql.type';
 import { firstValueFrom } from 'rxjs';
-import { Inject } from "@nestjs/common";
+import { Inject } from '@nestjs/common';
+import { LoggerAdapterToken, LoggerPort } from '@nest-upskilling/common/dist';
 
 registerEnumType(OrderStatus, {
   name: 'OrderStatus',
@@ -20,19 +21,30 @@ export class OrderResolver {
 
   constructor(
     @Inject('ORDER_PACKAGE')
-    private readonly clientGrpc: ClientGrpc) {
+    private readonly clientGrpc: ClientGrpc,
+    @Inject(LoggerAdapterToken)
+    private readonly loggerPort: LoggerPort,
+  ) {
     this.orderServiceClient =
       this.clientGrpc.getClientByServiceName<OrderServiceClient>(
         'OrderService',
       );
   }
 
-  @Query(() => OrderStatusGraphqlType)
+  @Query(() => OrderStatusGraphqlType, { name: 'orderStatus' })
   async getOrderStatus(
-    @Args('orderId') id: number,
+    @Args('orderId') orderId: number,
   ): Promise<OrderStatusGraphqlType> {
+    this.loggerPort.log(
+      'OrderResolver',
+      `Fetching order status for order with id: ${orderId}`,
+    );
+    this.loggerPort.log(
+      'OrderResolver',
+      `Type of order id: ${typeof orderId}`,
+    );
     const orderStatusResponse: GetOrderStatusResponse = await firstValueFrom(
-      this.orderServiceClient.getOrderStatus({ orderId: id }),
+      this.orderServiceClient.getOrderStatus({ orderId }),
     );
     return {
       value: orderStatusResponse.status,

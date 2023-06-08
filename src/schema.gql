@@ -54,7 +54,7 @@ enum OrderStatus {
 }
 
 type Query {
-  getOrderStatus(orderId: Float!): OrderStatusGraphqlType!
+  orderStatus(orderId: Float!): OrderStatusGraphqlType!
   hello: String!
   categories: [CategoryGraphqlType!]!
   product(id: Float!): ProductGraphqlType!
