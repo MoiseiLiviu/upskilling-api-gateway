@@ -39,10 +39,6 @@ export class OrderResolver {
       'OrderResolver',
       `Fetching order status for order with id: ${orderId}`,
     );
-    this.loggerPort.log(
-      'OrderResolver',
-      `Type of order id: ${typeof orderId}`,
-    );
     const orderStatusResponse: GetOrderStatusResponse = await firstValueFrom(
       this.orderServiceClient.getOrderStatus({ orderId }),
     );
